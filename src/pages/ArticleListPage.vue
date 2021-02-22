@@ -1,5 +1,5 @@
 <template>
- <TitleBar title="게시물 리스트 페이지"/>
+ <TitleBar>게시물 리스트</TitleBar>
 </template>
 
 <script lang="ts">

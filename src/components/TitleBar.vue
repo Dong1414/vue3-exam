@@ -1,7 +1,7 @@
 <template>
  <section class="title-bar">
      <h1 class="container mx-auto">
-        {{ title }}
+        <slot></slot>
      </h1>
 
  </section>
@@ -11,12 +11,6 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    props: {
-        title: {
-            type: String,
-            required: true
-        }
-    },      
   name: 'TitleBar',
 })
 </script>
