@@ -1,5 +1,7 @@
 <template>
-  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id nemo earum, enim ad iste veritatis at corporis incidunt consequatur laudantium sit, magni sequi fuga fugit voluptatibus porro repellat tempora exercitationem?
+  <div class="bg-black">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam eaque nesciunt quis ex corporis sit veniam, dicta veritatis aperiam delectus, a corrupti porro, neque soluta consequatur! Nemo tempora fugit quibusdam.
+  </div>
 </template>
 
 <script lang="ts">
