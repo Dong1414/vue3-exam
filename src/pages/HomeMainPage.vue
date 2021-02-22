@@ -1,5 +1,9 @@
 <template>
     <TitleBar>홈 메인</TitleBar>
+     
+  <input type="checkbox" />
+  <input type="radio" />
+  <input type="radio" />
 </template>
 
 <script lang="ts">
