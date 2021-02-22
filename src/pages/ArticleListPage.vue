@@ -1,6 +1,11 @@
 <template>
  <TitleBar>게시물 리스트</TitleBar>
-</template>
+ 
+  <input type="checkbox" />
+  <input type="radio" />
+  <input type="radio" />
+ 
+ </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
