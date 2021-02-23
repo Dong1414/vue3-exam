@@ -25,8 +25,17 @@ export default defineComponent({
 </script>
 
 <style scoped>
+input[type="password"]:focus{
+
+    outline:none;
+
+    box-shadow:none;
+
+    -webkit-box-shadow:none;
+
+}
   .loginId{
-    border-bottom:solid 2px gray;
+    border-bottom:solid 2px gray !important;
     width:350px;
   }
   input[type="password"]{
@@ -37,10 +46,7 @@ export default defineComponent({
     padding-left: 0;
     width:350px;
   }
-  input{
-    border: none !important;
-    outline: none !important;
-  }
+  
 
 </style>
 
