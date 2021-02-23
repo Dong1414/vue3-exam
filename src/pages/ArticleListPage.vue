@@ -5,6 +5,7 @@
       <form v-on:submit.prevent="checkAndWriteArticle">
         <FormRow title="제목">
           <input ref="newArticleTitleElRef" class="form-row-input" type="text" placeholder="제목을 입력해주세요.">
+          
         </FormRow>
         <FormRow title="내용">
           <textarea ref="newArticleBodyElRef" class="form-row-input" placeholder="내용을 입력해주세요."></textarea>

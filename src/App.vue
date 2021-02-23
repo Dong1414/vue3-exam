@@ -70,6 +70,16 @@ a {
   color:inherit;
   text-decoration:none;
 }
+select,input,textarea:focus {
+        outline:0 !important;
+}
+
+input,textarea:focus {
+
+        outline: none !important;
+
+}
+-webkit-tap-highlight-color : transparent;
 
 /* 라이브러리 */
 .con {
@@ -84,7 +94,6 @@ a {
 .color-white {
   color:white;
 }
-
 /* 커스텀 */
 .con-min-width {
   min-width:1024px;
