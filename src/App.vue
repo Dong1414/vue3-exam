@@ -60,4 +60,37 @@ export default defineComponent({
 .btns > [class*="btn-"] + [class*="btn-"] {
   margin-left: theme('spacing.2');
 }
+
+body, ul, li {
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+/* 라이브러리 */
+.con {
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.bg-black {
+  background-color:black;
+}
+
+.color-white {
+  color:white;
+}
+
+/* 커스텀 */
+.con-min-width {
+  min-width:1024px;
+}
+
+.con {
+  width:1024px;
+}
 </style> 
