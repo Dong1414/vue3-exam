@@ -117,6 +117,6 @@ export class MainApi extends HttpClient {
   }
   
   public article_doWrite(boardId:number, title: string, body: string) {
-    return this.instance.get<MainApi__article_doWrite__IResponseBody>(`/article/doAdd?boardId=${boardId}&title=${title}&body=${body}`);
+    return this.instance.get<MainApi__article_doWrite__IResponseBody>(`/article/doAdd?boardId=${boardId}&title=${title}&body=${body}&authKey=authKey1__2`);
   }
 } 
