@@ -73,6 +73,11 @@ export interface MainApi__article_detail__IResponseBody extends Base__IResponseB
     article: IArticle
   };
 }
+export interface MainApi__article_doWrite__IResponseBody extends Base__IResponseBodyType1 {
+    body:{
+      id: number
+    };
+}
 
 // http://localhost:8021/usr/ 와의 통신장치
 export class MainApi extends HttpClient {
@@ -83,6 +88,8 @@ export class MainApi extends HttpClient {
       })
     );
   }
+
+
 
   protected _handleRequest(config:AxiosRequestConfig) {
     config.params = {};
@@ -107,5 +114,9 @@ export class MainApi extends HttpClient {
   // http://localhost:8021/usr/detail/id?id=? 를 요청하고 응답을 받아오는 함수
   public article_detail(id: number) {
     return this.instance.get<MainApi__article_detail__IResponseBody>(`/article/detail?id=${id}`);
+  }
+  
+  public article_doWrite(boardId:number, title: string, body: string) {
+    return this.instance.get<MainApi__article_doWrite__IResponseBody>(`/article/doAdd?boardId=${boardId}&title=${title}&body=${body}`);
   }
 } 

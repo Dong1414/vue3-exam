@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import ArticleWritePage from './pages/ArticleWritePage.vue'
+import ArticleDetailPage from './pages/ArticleDetailPage.vue'
 
 // 앱 컴포넌트 불러오기
 import App from './App.vue'
@@ -32,6 +34,16 @@ const routes = [
         component: ArticleListPage,
         props: (route:any) => ({ boardId: route.query.boardId })
       },
+      {
+        path: '/article/detail',
+        component: ArticleDetailPage,
+        props: (route:any) => ({ id: route.query.id })
+      },
+      {
+        path: '/article/write',
+        component: ArticleWritePage,
+        props: (route:any) => ({ boardId: route.query.boardId })
+      },
 ];
 
 // 라우터 생성
@@ -45,7 +57,7 @@ const app = createApp(App)
 
 // 전력 라이브러리 등록
 app.config.globalProperties.$mainApi = mainApi;
-
+app.config.globalProperties.$router = router;
 
 // 전역 컴포넌트 등록
 app.component('TitleBar',TitleBar);
