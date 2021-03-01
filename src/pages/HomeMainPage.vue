@@ -18,6 +18,12 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'HomeMainPage',
+  props: {
+    globalShare: {
+      type: Object,
+      required: true
+    }
+  },
   components: {
 
   }

@@ -4,7 +4,7 @@
   <section class="section section-article-write-form px-2">
     <div class="container mx-auto">
       <div class="px-6 py-6 bg-white rounded-lg shadow-md">
-        <form v-on:submit.prevent="checkAndWriteArticle">
+          <form v-if="globalShare.isLogined" v-on:submit.prevent="checkAndWriteArticle">
           <FormRow title="게시판">
             <select class="form-row-select" ref="newArticleBoardIdElRef">
               <option value="1">공지사항</option>
@@ -23,6 +23,9 @@
             </div>
           </FormRow>
         </form>
+         <div v-else>
+          <route-link class="btn-link" to="/member/login">로그인</route-link> 후 이용해주세요.
+        </div>
       </div>
     </div>
   </section>
@@ -36,6 +39,10 @@ import { Router } from 'vue-router';
 export default defineComponent({
   name: 'ArticleListPage',
   props: {
+     globalShare: {
+      type: Object,
+      required: true
+    },
     boardId: {
       type: Number,
       required: true,
@@ -58,9 +65,7 @@ export default defineComponent({
       newArticleBoardIdElRef.value.value = props.boardId + "";
     })
     
-    const state = reactive({
-      articles: [] as IArticle[]
-    });
+    
     function checkAndWriteArticle() {
       if ( newArticleBoardIdElRef.value == null ) {
         return;
@@ -88,9 +93,7 @@ export default defineComponent({
         return;
       }
       writeArtile(parseInt(newArticleBoardIdEl.value), newArticleTitleEl.value, newArticleBodyEl.value);
-      newArticleTitleEl.value = '';
-      newArticleBodyEl.value = '';
-      newArticleTitleEl.focus();
+      
     }
      function writeArtile(boardId:number, title:string, body:string) {
       mainApi.article_doWrite(boardId, title, body)
@@ -100,8 +103,7 @@ export default defineComponent({
            router.push("detail?id=" + newArticleId);
         });
     }
-    return {
-      state,
+    return {      
       checkAndWriteArticle,
       newArticleBoardIdElRef,
       newArticleTitleElRef,
