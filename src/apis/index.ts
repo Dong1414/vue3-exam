@@ -77,6 +77,8 @@ abstract class HttpClient {
 interface Base__IResponseBodyType1 {
   resultCode:string;
   msg:string;
+  fail:boolean;
+  success:boolean;
 }
 
 // /usr/article/list 의 응답 타입
@@ -106,7 +108,11 @@ export interface MainApi__member_authKey__IResponseBody extends Base__IResponseB
     nickname: string
   };
 }
-
+export interface MainApi__member_doJoin__IResponseBody extends Base__IResponseBodyType1 {
+  body:{
+    id: number,
+  };
+}
 
 // http://localhost:8021/usr/ 와의 통신장치
 export class MainApi extends HttpClient {
@@ -129,6 +135,12 @@ export class MainApi extends HttpClient {
   protected _handleResponse(axiosResponse:AxiosResponse) : AxiosResponse {
     if ( ["F-A", "F-B"].includes(axiosResponse?.data?.resultCode) ) {
       alert('로그인 후 이용해주세요.');
+
+      localStorage.removeItem("authKey");
+      localStorage.removeItem("loginedMemberId");
+      localStorage.removeItem("loginedMemberName");
+      localStorage.removeItem("loginedMemberNickname");
+
       location.replace('/member/login');
     }
 
@@ -156,5 +168,17 @@ export class MainApi extends HttpClient {
   }
   public member_authKey(loginId:string, loginPw:string) {
     return this.instance.get<MainApi__member_authKey__IResponseBody>(`/member/authKey?loginId=${loginId}&loginPw=${loginPw}`);
+  }
+  public member_doJoin(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string) {
+    return this.postByForm<MainApi__member_doJoin__IResponseBody>(
+      `/member/doJoin`, {
+        loginId,
+        loginPw,
+        name,
+        nickname,
+        cellphoneNo,
+        email
+      }
+    );
   }
 } 

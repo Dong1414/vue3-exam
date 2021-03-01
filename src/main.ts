@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ArticleWritePage from './pages/ArticleWritePage.vue'
 import ArticleDetailPage from './pages/ArticleDetailPage.vue'
 import MemberLoginPage from './pages/MemberLoginPage.vue'
+import MemberJoinPage from './pages/MemberJoinPage.vue'
 
 // 앱 컴포넌트 불러오기
 import App from './App.vue'
@@ -36,7 +37,15 @@ const globalShare:any = reactive({
     name:loginedMemberName,
     nicknam:loginedMemberNickname,
   },
-  isLogined: computed(() => globalShare.loginedMember.id !== null )
+  isLogined: computed(() => globalShare.loginedMember.id !== null ),
+  logout: () => {
+    localStorage.removeItem("authKey");
+    localStorage.removeItem("loginedMemberId");
+    localStorage.removeItem("loginedMemberName");
+    localStorage.removeItem("loginedMemberNickname");
+
+    location.replace('/member/login');
+  }
 });
 
 
@@ -68,6 +77,11 @@ const routes = [
       {
         path: '/member/login',
         component: MemberLoginPage,
+        props: (route:any) => ({ globalShare })
+      },    
+      {
+        path: '/member/join',
+        component: MemberJoinPage,
         props: (route:any) => ({ globalShare })
       }
 ];
