@@ -1,6 +1,6 @@
 <template>
   <TitleBar>로그인</TitleBar>
-
+  
   <section class="section section-member-login-form px-2">
     <div class="container mx-auto">
       <div class="px-6 py-6 bg-white rounded-lg shadow-md">
@@ -18,7 +18,7 @@
           </FormRow>
         </form>
         <div v-else>
-          이미 로그인 되었습니다. <route-link class="btn-link" to="/">홈</route-link> 으로 이동
+          이미 로그인 되었습니다. <router-link class="btn-link" to="/">홈</router-link> 으로 이동
         </div>
       </div>
     </div>
@@ -40,13 +40,11 @@ export default defineComponent({
   },
   setup(props) {
     const route = useRoute();
-
     const router:Router = getCurrentInstance()?.appContext.config.globalProperties.$router;
     const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;
     const loginIdElRef = ref<HTMLInputElement>();
     const loginPwElRef = ref<HTMLInputElement>();
-
-     onMounted(() => {
+    onMounted(() => {
       if ( route.query.loginId != null ) {
         if ( loginIdElRef.value == null ) {
           return;
@@ -58,7 +56,6 @@ export default defineComponent({
         loginPwElRef.value.focus();
       }
     })
-
     function checkAndLogin() {
       if ( loginIdElRef.value == null ) {
         return;
@@ -86,9 +83,9 @@ export default defineComponent({
       mainApi.member_authKey(loginId, loginPw)
         .then(axiosResponse => {
           alert(axiosResponse.data.msg);
-            if ( axiosResponse.data.fail ) {
-                return;
-            }
+          if ( axiosResponse.data.fail ) {
+            return;
+          }
           const authKey = axiosResponse.data.body.authKey;
           const loginedMemberId = axiosResponse.data.body.id;
           const loginedMemberName = axiosResponse.data.body.name;
@@ -103,7 +100,6 @@ export default defineComponent({
             name:loginedMemberName,
             nicknam:loginedMemberNickname,
           };
-          
           router.replace('/')
         });
     }
@@ -117,4 +113,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-</style> 
+</style>

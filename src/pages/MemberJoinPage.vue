@@ -1,24 +1,46 @@
 <template>
-  <TitleBar>로그인</TitleBar>
+  <TitleBar>회원가입</TitleBar>
 
   <section class="section section-member-login-form px-2">
     <div class="container mx-auto">
       <div class="px-6 py-6 bg-white rounded-lg shadow-md">
-        <form v-if="globalShare.isLogined == false" v-on:submit.prevent="checkAndLogin">
+        <form v-if="globalShare.isLogined == false" v-on:submit.prevent="checkAndJoin">
           <FormRow title="로그인아이디">
-            <input ref="loginIdElRef" class="form-row-input" type="text" placeholder="아이디를 입력해주세요.">
+            <input ref="loginIdElRef" class="w-full md:w-4/12" type="text" placeholder="아이디를 입력해주세요.">            
           </FormRow>
           <FormRow title="로그인비밀번호">
-            <input ref="loginPwElRef" class="form-row-input" type="password" placeholder="로그인비밀번호를 입력해주세요.">
+            <input ref="loginPwElRef" class="w-full md:w-4/12" type="password" placeholder="로그인비밀번호를 입력해주세요.">
           </FormRow>
-          <FormRow title="로그인">
+          <FormRow title="로그인비밀번호확인">
+            <input ref="loginPwConfirmElRef" class="w-full md:w-4/12" type="password" placeholder="로그인비밀번호확인을 입력해주세요.">
+          </FormRow>
+          <FormRow title="이름">
+            <input ref="nameElRef" class="w-full md:w-4/12" type="text" placeholder="이름을 입력해주세요.">
+          </FormRow>
+          <FormRow title="닉네임">
+            <input ref="nicknameElRef" class="w-full md:w-4/12" type="text" placeholder="닉네임을 입력해주세요.">
+          </FormRow>
+          <FormRow title="프로필 이미지">
+            <input ref="profileImgElRef" class="w-full md:w-4/12" type="file" placeholder="프로필이미지를 선택해주세요.">
+          </FormRow>  
+          <FormRow title="전화번호">
+            <input ref="cellphoneNoElRef" class="w-full md:w-4/12" type="tel" placeholder="전화번호를 입력해주세요.">
+            <input type="button" value="인증" class="btn-primary w-full mt-2 md:w-16 md:m-2 md:" />
+          </FormRow>
+          <FormRow title="이메일">
+            <input ref="emailElRef" class="w-full md:w-4/12" type="email" placeholder="이메일을 입력해주세요.">
+          </FormRow>
+          <FormRow title="주소">
+            <input ref="addressElRef" class="w-full md:w-4/12" type="text" placeholder="주소를 입력하세요">
+          </FormRow>
+          <FormRow title="">
             <div class="btns">
-              <input type="submit" value="로그인" class="btn-primary" />
+              <input type="submit" value="가입" class="btn-primary w-full md:w-16 md:mt-4" />
             </div>
           </FormRow>
         </form>
         <div v-else>
-          이미 로그인 되었습니다. <route-link class="btn-link" to="/">홈</route-link> 으로 이동
+          이미 로그인 되었습니다. <router-link class="btn-link" to="/">홈</router-link> 으로 이동
         </div>
       </div>
     </div>
@@ -27,11 +49,10 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted } from 'vue'
-import { IArticle } from '../types/'
 import { MainApi } from '../apis/'
 import { Router } from 'vue-router';
 export default defineComponent({
-  name: 'ArticleWritePage',
+  name: 'MemberJoinPage',
   props: {
     globalShare: {
       type: Object,
@@ -43,7 +64,15 @@ export default defineComponent({
     const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;
     const loginIdElRef = ref<HTMLInputElement>();
     const loginPwElRef = ref<HTMLInputElement>();
-    function checkAndLogin() {
+    const loginPwConfirmElRef = ref<HTMLInputElement>();
+    const addressElRef = ref<HTMLInputElement>();
+    const nameElRef = ref<HTMLInputElement>();
+    const profileImgElRef = ref<HTMLInputElement>();
+    const nicknameElRef = ref<HTMLInputElement>();
+    const cellphoneNoElRef = ref<HTMLInputElement>();
+    const emailElRef = ref<HTMLInputElement>();
+    function checkAndJoin() {
+      // 로그인아이디 체크
       if ( loginIdElRef.value == null ) {
         return;
       }
@@ -54,6 +83,7 @@ export default defineComponent({
         loginIdEl.focus();
         return;
       }
+      // 로그인비번 체크
       if ( loginPwElRef.value == null ) {
         return;
       }
@@ -64,33 +94,115 @@ export default defineComponent({
         loginPwEl.focus();
         return;
       }
-      login(loginIdEl.value, loginPwEl.value);
+      // 로그인비번확인 체크
+      if ( loginPwConfirmElRef.value == null ) {
+        return;
+      }
+      const loginPwConfirmEl = loginPwConfirmElRef.value;
+      if ( loginPwEl.value != loginPwConfirmEl.value ) {
+        alert('로그인 비번이 일치하지 않습니다.');
+        loginPwConfirmEl.focus();
+        return;
+      }
+      // 이름 체크
+      if ( nameElRef.value == null ) {
+        return;
+      }
+      const nameEl = nameElRef.value;
+      nameEl.value = nameEl.value.trim();
+      if ( nameEl.value.length == 0 ) {
+        alert('이름을 입력해주세요.');
+        nameEl.focus();
+        return;
+      }
+      // 별명 체크
+      if ( nicknameElRef.value == null ) {
+        return;
+      }
+      const nicknameEl = nicknameElRef.value;
+      nicknameEl.value = nicknameEl.value.trim();
+      if ( nicknameEl.value.length == 0 ) {
+        alert('별명을 입력해주세요.');
+        nicknameEl.focus();
+        return;
+      }
+      // 휴대전화번호 체크
+      if ( cellphoneNoElRef.value == null ) {
+        return;
+      }
+      const cellphoneNoEl = cellphoneNoElRef.value;
+      cellphoneNoEl.value = cellphoneNoEl.value.trim();
+      if ( cellphoneNoEl.value.length == 0 ) {
+        alert('휴대전화번호를 입력해주세요.');
+        cellphoneNoEl.focus();
+        return;
+      }
+      // 이메일 체크
+      if ( emailElRef.value == null ) {
+        return;
+      }
+      const emailEl = emailElRef.value;
+      emailEl.value = emailEl.value.trim();
+      if ( emailEl.value.length == 0 ) {
+        alert('이메일을 입력해주세요.');
+        emailEl.focus();
+        return;
+      }
+      //주소 체크
+      if ( addressElRef.value == null ) {
+        return;
+      }      
+      const addressEl = addressElRef.value;
+      addressEl.value = addressEl.value.trim();
+      if ( addressEl.value.length == 0 ) {
+        alert('주소를 입력해주세요.');
+        addressEl.focus();
+        return;
+      }
+       const startJoin = (genFileIdsStr:string) => {
+        join(loginIdEl.value, loginPwEl.value, nameEl.value, nicknameEl.value, cellphoneNoEl.value, emailEl.value, addressEl.value, genFileIdsStr);
+      };
+      const startFileUpload = (onSuccess:Function) => {
+        if ( !!!profileImgElRef.value?.files ) {
+          onSuccess("");
+          return;
+        }
+        
+        mainApi.common_genFile_doUpload(profileImgElRef.value?.files[0])
+          .then(axiosResponse => {
+            if ( axiosResponse.data.fail ) {
+              alert(axiosResponse.data.msg);
+              return;
+            }
+            else {
+              onSuccess(axiosResponse.data.body.genFileIdsStr);
+            }
+          });
+      };
+      startFileUpload(startJoin);
     }
-    function login(loginId:string, loginPw:string) {
-      mainApi.member_authKey(loginId, loginPw)
+     function join(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, address:string, genFileIdsStr:string) {
+      mainApi.member_doJoin(loginId, loginPw, name, nickname, cellphoneNo, email, address, genFileIdsStr)
         .then(axiosResponse => {
-          const authKey = axiosResponse.data.body.authKey;
-          const loginedMemberId = axiosResponse.data.body.id;
-          const loginedMemberName = axiosResponse.data.body.name;
-          const loginedMemberNickname = axiosResponse.data.body.nickname;
-          localStorage.setItem("authKey", authKey);
-          localStorage.setItem("loginedMemberId", loginedMemberId + "");
-          localStorage.setItem("loginedMemberName", loginedMemberName);
-          localStorage.setItem("loginedMemberNickname", loginedMemberNickname);
-          props.globalShare.loginedMember = {
-            authKey,
-            id:loginedMemberId,
-            name:loginedMemberName,
-            nicknam:loginedMemberNickname,
-          };
           alert(axiosResponse.data.msg);
-          router.replace('/')
+          if ( axiosResponse.data.fail ) {
+            return;
+          }
+          router.replace('/member/login?loginId=' + loginId)
         });
-    }
+    }    
+
     return {
-      checkAndLogin,
+      checkAndJoin,
       loginIdElRef,
-      loginPwElRef
+      loginPwElRef,
+      loginPwConfirmElRef,
+      profileImgElRef,
+      nameElRef,
+      nicknameElRef,
+      addressElRef,
+      cellphoneNoElRef,
+      emailElRef,
     }
   }
 })

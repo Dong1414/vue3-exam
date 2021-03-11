@@ -1,5 +1,5 @@
 <template>
-   <div class="form-row flex flex-col lg:flex-row">
+  <div class="form-row flex flex-col lg:flex-row">
     <div class="lg:flex md:items-center lg:w-28">
       <span>{{title}}</span>
     </div>
@@ -26,7 +26,6 @@ export default defineComponent({
 .form-row-select {
   @apply w-full rounded-sm;
 }
-
 .form-row-input {
   @apply w-full rounded-sm;
 }
@@ -40,4 +39,4 @@ textarea.form-row-input {
 
 <style scoped>
   
-</style> 
+</style>

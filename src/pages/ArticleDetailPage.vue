@@ -6,7 +6,7 @@
       <div v-if="state.article.id !== undefined" class="flex my-10 bg-white px-6 py-2 shadow-md rounded-lg overflow-hidden mx-auto">
         <div class="flex items-center w-full">
           <div class="w-full">
-            <div class="flex flex-row mt-2 px-2 py-3">
+            <div class="flex flex-row mt-2 py-3">
               <div class="rounded-full border-2 border-pink-500">
                 <img class="w-12 h-12 object-cover rounded-full shadow cursor-pointer" alt="User avatar" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=200&amp;q=200">
               </div>
@@ -55,7 +55,7 @@
               <div class="mt-3 flex flex-row">
                 <div class="flex text-gray-700 font-normal text-sm rounded-md mb-2 mr-4 items-center whitespace-nowrap">댓글:<div class="ml-1 text-gray-400 font-thin text-ms"> 30</div>
                 </div>
-                <div class="flex text-gray-700 font-normal text-sm rounded-md mb-2 mr-4 items-center whitespace-nowrap">조회 <div class="ml-1 text-gray-400 font-thin text-ms"> 60k</div>
+                <div class="flex text-gray-700 font-normal text-sm rounded-md mb-2 mr-4 items-center whitespace-nowrap">조회: <div class="ml-1 text-gray-400 font-thin text-ms"> 60k</div>
                 </div>
               </div>
               <div class="mt-3 w-full flex justify-end">
@@ -63,7 +63,7 @@
                 </div>
               </div>
             </div>
-            <div class="relative flex items-center self-center w-full max-w-xl p-4 overflow-hidden text-gray-600 focus-within:text-gray-400">
+            <div class="relative flex items-center self-center w-full max-w-xl py-4 text-gray-600 focus-within:text-gray-400">
               <img class="w-10 h-10 object-cover rounded-full shadow mr-2 cursor-pointer" alt="User avatar" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=200&amp;q=200">
               <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                 <button type="submit" class="p-1 focus:outline-none focus:shadow-none hover:text-blue-500">
@@ -73,15 +73,13 @@
 
                 </button>
               </span>
-                <input type="search" class="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400 focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue" style="border-radius: 25px" placeholder="댓글을 입력해주세요." autocomplete="off">
+              <input type="search" class="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400 focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue" style="border-radius: 25px" placeholder="댓글을 입력해주세요." autocomplete="off">
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-
 </template>
 
 <script lang="ts">
@@ -91,7 +89,7 @@ import { MainApi } from '../apis/'
 export default defineComponent({
   name: 'ArticleDetailPage',
   props: {
-     globalShare: {
+    globalShare: {
       type: Object,
       required: true
     },
@@ -103,12 +101,9 @@ export default defineComponent({
   },
   setup(props) {
     const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;
- 
     const state = reactive({
       article: {} as IArticle
     });
-
-
     function loadArticle(id:number) {
       mainApi.article_detail(id)
       .then(axiosResponse => {
@@ -116,12 +111,10 @@ export default defineComponent({
       });
     }
     onMounted(() => {
-        loadArticle(props.id);
+      loadArticle(props.id);
     });
-   
-
     watch(() => props.id, (newValue, oldValue) => {
-        loadArticle(props.id);
+      loadArticle(props.id);
     })
     return {
       state,
@@ -131,4 +124,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-</style> 
+</style>
