@@ -7,4 +7,5 @@ export interface IArticle {
   title:string;
   body:string;
   extra__writer:string;
+  extra__cellphoneNo:number;
 }

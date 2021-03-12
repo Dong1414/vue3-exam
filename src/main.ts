@@ -14,7 +14,7 @@ import TitleBar from './components/TitleBar.vue';
 import FormRow from './components/FormRow.vue';
 
 // 페이지 불러오기
-import HomeMainPage from './pages/HomeMainPage.vue'
+import HomeMainPage from './pages/QuestPage.vue'
 import ArticleListPage from './pages/ArticleListPage.vue'
 import ArticleWritePage from './pages/ArticleWritePage.vue'
 import ArticleDetailPage from './pages/ArticleDetailPage.vue'
